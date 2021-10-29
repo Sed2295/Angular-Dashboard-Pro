@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter,OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-increment',
@@ -6,13 +6,19 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styles: [
   ]
 })
-export class IncrementComponent {
+export class IncrementComponent implements OnInit {
+  
+  ngOnInit() {
+    this.btnClass = `btn ${this.btnClass}`
+  }
 
   //Con input indicamos que recibimos información del padre 
   //Forma 1 y en el padre ponemos [progress] = 10
   //  @Input() progress: number = 50;
-  //Forma 1 y en el padre ponemos [value] = 10
+  //Forma 1 y en el padre ponemos [value] = 10 en el cual renombramos por si en el componente hijo una propiedad se llama igual
   @Input('value') progress: number = 50;
+  //Si no se lo mandamos en progress.component pone por defecto el btn btn-sucess
+  @Input() btnClass: string = "btn-success"
   //Output para que podamos emitir valores
   @Output() exitValue: EventEmitter<number> = new EventEmitter();
 
@@ -31,7 +37,18 @@ export class IncrementComponent {
     }
     this.progress = this.progress + value
     this.exitValue.emit(this.progress)
-    console.log('entro')
+    //console.log('entro')
+  }
+  onChange(value: number){
+    console.log(value)
+    if(value > 100)
+      this.progress = 100;
+    else if(value < 0)
+      this.progress = 0;
+    else
+      this.progress = value;
+
+    this.exitValue.emit(this.progress)
   }
 
 }

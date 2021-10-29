@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-               <h4 class="card-title">Striped Progress bar</h4>
+               <h4 class="card-title">Striped Progress bar {{progress1}}</h4>
                <div class="progress m-t-20">
                     <div class="progress-bar bg-success progress-bar-striped active" 
                         style="height:10px;" 
@@ -32,7 +32,18 @@
     <div class="col-6">
         <div class="card">
             <div class="card-body">
-                <app-increment  (exitValue)="progress2 = $event" [value]="progress2"></app-increment>
+                <!--Forma 1 en la cual le decimos que se encargue angular con una propiedad-->
+                <app-increment  
+                    (exitValue)="progress2 = $event" 
+                    [value]="progress2" 
+                    [btnClass]="color">
+                </app-increment>
+                <!--Forma 2 la cual la mandamos como string -->
+                <!--app-increment  
+                    (exitValue)="progress2 = $event" 
+                    [value]="progress2" 
+                    btnClass="btn btn-info">
+                </app-increment-->
             </div>
         </div>
     </div>
